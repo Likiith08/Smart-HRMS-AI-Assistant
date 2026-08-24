@@ -1,0 +1,33 @@
+html {
+  background: #f5f7fb;
+}
+html,
+body,
+#root {
+  min-height: 100%;
+}
+body {
+  margin: 0;
+}
+a,
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+::selection {
+  background: #c7d2fe;
+  color: #312e81;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
