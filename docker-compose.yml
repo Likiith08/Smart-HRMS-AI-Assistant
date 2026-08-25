@@ -1,0 +1,73 @@
+services:
+
+  mysql:
+    image: mysql:8.4
+    container_name: smart-hrms-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: tiger
+      MYSQL_DATABASE: MY_HRMS
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ptiger"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  ai-service:
+    build:
+      context: ./Ai-service
+      dockerfile: Dockerfile
+    container_name: smart-hrms-ai
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: smart-hrms-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      ai-service:
+        condition: service_started
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+
+      FRONTEND_URL: http://localhost:5173
+
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: MY_HRMS
+      DB_USER: root
+      DB_PASSWORD: tiger
+
+      JWT_SECRET: change-this-to-a-long-random-secret_password
+      JWT_REFRESH_SECRET: change-this-into-another-long-random-secret_password_make_it_as_a_secret
+
+      FASTAPI_URL: http://ai-service:8000
+      AI_ASSISTANT_MODE: local-intent
+
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: smart-hrms-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  mysql_data:

@@ -64,7 +64,7 @@ const developer = {
   email: 'likithram0803@gmail.com',
   linkedin: 'https://www.linkedin.com/in/likith-t-n',
   github: 'https://github.com/Likiith08',
-  image: '../images/Developer.jpeg',
+  image: '/Developer.jpeg',
 };
 
 const roleNav = {
@@ -234,7 +234,7 @@ function Login() {
       <div className="login-orb orb-one" />
       <div className="login-orb orb-two" />
       <div className="login-brand">
-        <img className="brand-logo-mark" src="../images/hrms-logo-mark.png" alt="Smart HRMS" />
+        <img className="brand-logo-mark" src="/hrms-logo-mark.png" alt="Smart HRMS" />
         <span>Smart Human Resource Management System</span>
       </div>
       <div className="login-card glass">
@@ -316,7 +316,7 @@ function Shell() {
     <div className="app-shell">
       <aside className={`sidebar ${mobileOpen ? 'open' : ''}`}>
         <div className="brand">
-          <img className="brand-logo-mark" src="../images/hrms-logo-mark.png" alt="Smart HRMS" />
+          <img className="brand-logo-mark" src="/hrms-logo-mark.png" alt="Smart HRMS" />
           <div>
             <strong>Smart HRMS</strong>
             <small>People • Payroll • Intelligence</small>
